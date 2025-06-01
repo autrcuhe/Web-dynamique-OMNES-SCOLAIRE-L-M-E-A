@@ -26,22 +26,23 @@ try {
     $stmt_check_conv = $pdo->prepare("SELECT COUNT(*) FROM messages 
                                      WHERE (sender_user_id = ? AND receiver_prof_id = ?) 
                                         OR (sender_user_id = ? AND receiver_user_id = ?)");
+    
     // Note: Pour la vérification, on utilise sender_user_id et receiver_prof_id pour le cas client->prof
     // et sender_user_id et receiver_user_id pour le cas prof->client (potentiel, bien que le bouton soit sur la fiche prof)
     // Simplifions pour l'instant : on cherche un message où l'un est expéditeur et l'autre destinataire (prof)
      $stmt_check_conv = $pdo->prepare("SELECT COUNT(*) FROM messages 
                                       WHERE (sender_user_id = ? AND receiver_prof_id = ?) 
                                          OR (receiver_user_id = ? AND sender_user_id = ?)"); // Correction ici pour vérifier dans les deux sens si l'interlocuteur est un user (prof)
-    $stmt_check_conv->execute([$user_id, $professeur_id, $user_id, $professeur_id]); // Paramètres corrigés
+    $stmt_check_conv->execute([$user_id, $professeur_id, $user_id, $professeur_id]); 
     $conv_exists = $stmt_check_conv->fetchColumn();
 
     // Si aucune conversation n'existe, insérer un premier message par défaut
     if ($conv_exists == 0) {
         $default_message = "Bonjour Professeur,"; // Message par défaut
-        $timestamp = date('Y-m-d H:i:s'); // Horodatage actuel
-        $type = 'communication'; // Type de message
+        $timestamp = date('Y-m-d H:i:s'); 
+        $type = 'communication'; 
 
-        // Pour l'insertion, il faut que le receiver_prof_id soit bien l'ID du professeur
+        
         $stmt_insert_message = $pdo->prepare("INSERT INTO messages (sender_user_id, receiver_prof_id, message_content, timestamp, type) VALUES (?, ?, ?, ?, ?)");
         $stmt_insert_message->execute([$user_id, $professeur_id, $default_message, $timestamp, $type]);
         $_SESSION['message_statut'] = ['type' => 'success', 'texte' => 'Nouvelle conversation initiée.'];
