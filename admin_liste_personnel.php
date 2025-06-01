@@ -8,7 +8,7 @@ if (!isset($_SESSION['utilisateur']) || $_SESSION['utilisateur']['type'] !== 'ad
     exit();
 }
 
-// Récupérer la liste des professeurs
+// Récupérer la liste des prof
 $stmt = $pdo->query("
     SELECT p.id, p.nom, p.prenom, p.bureau, p.telephone, p.email as professeur_email, p.departement_id, u.id as utilisateur_id 
     FROM professeurs p 
