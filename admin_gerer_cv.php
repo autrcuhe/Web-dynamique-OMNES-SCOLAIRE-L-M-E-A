@@ -7,7 +7,7 @@ if (!isset($_SESSION['utilisateur']) || $_SESSION['utilisateur']['type'] !== 'ad
     header('Location: index.php');
     exit();
 }
-ll
+
 // Récupérer l'ID du professeur depuis l'URL
 $professeur_id = $_GET['professeur_id'] ?? null;
 
