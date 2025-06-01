@@ -5,7 +5,7 @@ require_once 'config.php';
 // Vérifier si l'utilisateur est connecté et est un administrateur
 if (!isset($_SESSION['utilisateur']) || $_SESSION['utilisateur']['type'] !== 'admin') {
     // Rediriger si pas connecté ou pas admin
-    header('Location: index.php'); // Ou une page d'erreur/accès refusé
+    header('Location: index.php'); // Ou une page d'erreur
     exit();
 }
 
