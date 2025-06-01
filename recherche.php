@@ -17,6 +17,8 @@ session_start();
             margin-bottom: 30px;
         }
 
+        
+
         .search-bar {
             display: flex;
             align-items: center;
