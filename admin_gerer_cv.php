@@ -187,7 +187,7 @@ if ($cv_filename && file_exists("uploads/cvs/" . $cv_filename)) {
 
     </main>
     <footer>
-        <p>Contact : omnes.education@gmail.com | Tél : 0624354678 | Adresse : 10 rue Sextius Michel, 75015 Paris</p>
+        <p>Contact : contact@omnes-scolaire.fr | Adresse : 10 rue Exemple, Paris</p>
     </footer>
 </body>
 </html> 

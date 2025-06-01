@@ -19,21 +19,14 @@ $current_interlocutor = null; // Pour stocker les informations de l'interlocuteu
 $conversation_messages = [];
 $conversations = []; // Pour stocker la liste des conversations
 
-// --- Logique pour gérer l'interlocuteur courant et récupérer les conversations et messages ---
 
-// 1. Si un interlocuteur_id est présent dans l'URL (et n'est pas l'ID système 0),
-//    récupérer les informations de cet utilisateur pour le définir comme l'interlocuteur courant.
-//    Cela garantit l'affichage de la zone de message même s'il n'y a pas encore de messages.
 if ($interlocuteur_id !== null && $interlocuteur_id != 0) {
     $stmt_current = $pdo->prepare("SELECT id, nom, prenom, type FROM utilisateurs WHERE id = ?");
     $stmt_current->execute([$interlocuteur_id]);
     $current_interlocutor = $stmt_current->fetch(PDO::FETCH_ASSOC);
 }
 
-// 2. Récupérer tous les messages impliquant l'utilisateur connecté,
-//    pour identifier les interlocuteurs uniques et construire la liste de conversations.
-//    On cherche les messages où l'utilisateur est l'expéditeur ou le destinataire.
-//    On doit considérer les messages entre client-prof et prof-client.
+
 
 $sql_conversations = "SELECT DISTINCT
                           CASE
@@ -86,8 +79,7 @@ foreach ($all_interlocutor_ids as $id) {
     }
 }
 
-// 3. Si un interlocuteur courant a été défini (via l'URL),
-//    récupérer les messages de cette conversation (qui sera vide s'il n'y en a pas).
+
 if ($current_interlocutor) { // Vérifier si un interlocuteur courant valide est défini
      // Récupérer les messages de communication avec l'interlocuteur
      // Construire la requête SQL et les paramètres conditionnellement
@@ -395,13 +387,7 @@ if ($current_interlocutor) { // Vérifier si un interlocuteur courant valide est
                 // Mettre à jour l'URL avec l'ID de l'interlocuteur
                 history.pushState(null, '', `messages.php?interlocuteur_id=${interlocutorId}`);
 
-                // Appeler une fonction (qui devra être implémentée en PHP ou via AJAX) 
-                // pour charger et afficher les messages de cette conversation.
-                // Pour l'instant, nous allons simplement afficher un message temporaire
-                // ou recharger la page pour que PHP gère l'affichage.
-                // La méthode la plus simple pour l'instant est de recharger la page
-                // avec le nouveau paramètre, mais une solution AJAX serait plus fluide.
-                // Recharge la page pour que PHP charge les bons messages
+                
                 window.location.href = `messages.php?interlocuteur_id=${interlocutorId}`;
             }
         }
@@ -420,27 +406,13 @@ if ($current_interlocutor) { // Vérifier si un interlocuteur courant valide est
         const urlParams = new URLSearchParams(window.location.search);
         const initialInterlocutorId = urlParams.get('interlocuteur_id');
         if (initialInterlocutorId) {
-            // Trouver l'élément de conversation correspondant et simuler un clic
-            // pour activer la conversation et charger les messages.
-            // Nous devons attendre que les éléments de conversation soient ajoutés au DOM.
-            // Une approche plus robuste serait d'utiliser un Event Delegation
-            // sur le conteneur des conversations si les items sont ajoutés dynamiquement après le chargement du DOM initial.
-            // Étant donné que les conversations sont générées en PHP au chargement de la page,
-            // nous pouvons directement chercher l'élément.
+           
             const initialConversationItem = document.querySelector(`.conversation-item[data-interlocutor-id='${initialInterlocutorId}']`);
             if (initialConversationItem) {
                 // Simuler un clic pour déclencher l'affichage de la conversation
                 initialConversationItem.click();
             } else if (initialInterlocutorId != 0) { // Si l'interlocuteur ID existe mais n'est pas dans la liste (et n'est pas le système)
-                 // Cela peut arriver si l'utilisateur n'a pas encore eu de conversation avec ce professeur.
-                 // Dans ce cas, nous devrons peut-être initier une nouvelle conversation.
-                 // Pour l'instant, on peut soit afficher un message, soit rediriger.
-                 // On va simplement recharger la page sans paramètre pour afficher la liste par défaut.
-                 // Mieux vaut ne rien faire et laisser la liste vide si aucune conversation passée.
-                 // Laissez PHP gérer l'affichage initial si l'interlocuteur_id est présent.
-                 // Le code PHP au début du fichier gère déjà la récupération des messages si $interlocuteur_id est défini.
-                 // Nous n'avons donc pas besoin de recharger ou simuler un clic ici.
-                 // L'important est que l'élément de conversation correspondant soit marqué comme actif.
+               
 
                  // Ajouter une classe 'active' si l'interlocuteur_id correspond
                  const convItemToActivate = document.querySelector(`.conversation-item[data-interlocutor-id='${initialInterlocutorId}']`);
@@ -448,10 +420,7 @@ if ($current_interlocutor) { // Vérifier si un interlocuteur courant valide est
                      convItemToActivate.classList.add('active');
                  }
 
-                 // Nous devons également nous assurer que la zone de message affiche le nom de l'interlocuteur sélectionné
-                 // et que le formulaire d'envoi est prêt à envoyer à cet interlocuteur.
-                 // Ces parties sont gérées par PHP lors du chargement de la page si $current_interlocutor est défini.
-                 // Aucun code JS supplémentaire n'est strictement nécessaire ici pour le chargement initial si PHP le gère bien.
+                
             }
         }
     });

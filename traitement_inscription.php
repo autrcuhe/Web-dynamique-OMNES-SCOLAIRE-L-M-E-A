@@ -120,14 +120,7 @@ try {
     exit();
 
 } catch (PDOException $e) {
-    // En cas d'erreur lors de l'insertion, afficher l'erreur détaillée pour le débogage
-    // $_SESSION['message_statut'] = [
-    //     'type' => 'danger',
-    //     'texte' => 'Une erreur est survenue lors de la création du compte. Veuillez réessayer.'
-    // ];
-    // header('Location: inscription.php');
-    // exit();
+    
     echo "Erreur de base de données : " . $e->getMessage();
-    // Optionnel : Loguer l'erreur dans un fichier au lieu de l'afficher directement en production
-    // file_put_contents('pdo_error.log', $e->getMessage() . "\n", FILE_APPEND);
+   
 } 

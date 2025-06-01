@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                  ]);
 
                 // Rediriger avec un message de succès
-                // $_SESSION['message_statut'] = ['type' => 'success', 'texte' => 'Message envoyé.']; // Optionnel
+              
             }
 
         } catch (PDOException $e) {

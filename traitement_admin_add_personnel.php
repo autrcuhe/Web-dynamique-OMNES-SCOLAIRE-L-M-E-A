@@ -71,7 +71,7 @@ if (!empty($erreurs)) {
 $pdo->beginTransaction();
 
 try {
-    // 1. Insérer l'utilisateur dans la table utilisateurs avec le type 'personnel'
+    // Insérer l'utilisateur dans la table utilisateurs avec le type 'personnel'
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
     $stmt_user = $pdo->prepare("
         INSERT INTO utilisateurs (nom, prenom, email, mot_de_passe, type)
@@ -82,14 +82,38 @@ try {
     // Récupérer l'ID du nouvel utilisateur inséré
     $new_user_id = $pdo->lastInsertId();
 
-    // 2. Insérer les informations spécifiques dans la table professeurs
+    $photo_path = NULL; // Par défaut, pas de photo
+    // 2. Gérer l'upload de la photo si présente
+    if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
+        $upload_dir = 'uploads/photos/';
+        // Assurez-vous que le répertoire d'upload existe
+        if (!is_dir($upload_dir)) {
+            mkdir($upload_dir, 0777, true);
+        }
+
+        $file_info = pathinfo($_FILES['photo']['name']);
+        $file_extension = strtolower($file_info['extension']);
+        // Générer un nom de fichier unique, par exemple basé sur l'ID utilisateur et l'extension
+        $new_file_name = 'professors_' . $new_user_id . '.' . $file_extension;
+        $target_file = $upload_dir . $new_file_name;
+
+        // Déplacer le fichier uploadé
+        if (move_uploaded_file($_FILES['photo']['tmp_name'], $target_file)) {
+            $photo_path = $target_file; // Enregistrer le chemin relatif dans la base de données
+        } else {
+            
+            error_log("Erreur lors du déplacement du fichier uploadé pour l'utilisateur " . $new_user_id);
+        }
+    }
+
+    // 3. Insérer les informations spécifiques dans la table professeurs
     $stmt_prof = $pdo->prepare("
         INSERT INTO professeurs (
-            utilisateur_id, nom, prenom, departement_id, bureau, telephone, email, acces
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            utilisateur_id, nom, prenom, departement_id, bureau, telephone, email, acces, photo
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     ");
     $stmt_prof->execute([
-        $new_user_id, $nom, $prenom, $departement_id, $bureau, $telephone_pro, $email, $acces
+        $new_user_id, $nom, $prenom, $departement_id, $bureau, $telephone_pro, $email, $acces, $photo_path
     ]);
 
     // Commiter la transaction si tout s'est bien passé
@@ -111,7 +135,7 @@ try {
         'texte' => 'Une erreur est survenue lors de l\'ajout du membre : ' . $e->getMessage()
     ];
      // Afficher l'erreur détaillée pour le débogage
-    // echo "Erreur de base de données : " . $e->getMessage();
+   
     header('Location: admin_add_personnel.php');
     exit();
 }

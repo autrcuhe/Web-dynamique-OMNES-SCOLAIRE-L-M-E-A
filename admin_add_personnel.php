@@ -5,7 +5,7 @@ require_once 'config.php';
 // Vérifier si l'utilisateur est connecté et est un administrateur
 if (!isset($_SESSION['utilisateur']) || $_SESSION['utilisateur']['type'] !== 'admin') {
     // Rediriger si pas connecté ou pas admin
-    header('Location: index.php'); // Ou une page d'erreur
+    header('Location: index.php'); // Ou une page d'erreur/accès refusé
     exit();
 }
 
@@ -116,7 +116,7 @@ $u = $_SESSION['utilisateur'];
             unset($_SESSION['message_statut']); // Supprimer le message après l'affichage
         }
         ?>
-        <form action="traitement_admin_add_personnel.php" method="POST" class="add-personnel-form">
+        <form action="traitement_admin_add_personnel.php" method="POST" class="add-personnel-form" enctype="multipart/form-data">
             <h2>Ajouter un membre du personnel ou un professeur</h2>
             <div class="form-group">
                 <label for="nom">Nom :</label>
@@ -135,7 +135,7 @@ $u = $_SESSION['utilisateur'];
                 <input type="password" id="password" name="password" required>
             </div>
              <div class="form-group">
-                <label for="departement_id">Département ID :</label>
+                <label for="departement_id">Département ID : (1: informatique, 2: mathématiques, 3: physique)</label>
                 <input type="text" id="departement_id" name="departement_id">
             </div>
              <div class="form-group">
@@ -149,6 +149,10 @@ $u = $_SESSION['utilisateur'];
             <div class="form-group">
                 <label for="acces">Accès :</label>
                 <input type="text" id="acces" name="acces">
+            </div>
+             <div class="form-group">
+                <label for="photo">Photo :</label>
+                <input type="file" id="photo" name="photo" accept="image/*">
             </div>
              <!-- Pour simplifier, on ajoutera les autres champs (photo, video, cv, dispo) plus tard -->
 

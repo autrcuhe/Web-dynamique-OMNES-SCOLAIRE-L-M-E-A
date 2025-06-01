@@ -45,14 +45,14 @@ session_start();
     <div class="evenements-carrousel-container">
         <section id="evenement">
             <h3>Événement de la semaine</h3>
-            <p>Portes ouvertes le 15 juin ! Venez découvrir nos formations et rencontrer nos enseignants.</p>
+            <p>Journée Portes Ouvertes Virtuelles le 22 juin ! Explorez nos campus et échangez avec nos étudiants et professeurs en ligne.</p>
         </section>
 
         <section id="carrousel">
             <ul>
                 <li><img src="image/Image1.jpeg" alt="Image 1"/></li>  
                 <li><img src="image/Image2.jpeg" alt="Image 2"/></li>  
-                <li><img src="image/Image3.jpeg" alt="Image 3"/></li>
+                <li><img src="image/Image3.jpg" alt="Image 3"/></li>
             </ul>  
             <button class="precedent">precedent</button>
             <button class="suivant">suivant</button>

@@ -2,9 +2,7 @@
 session_start();
 require_once 'config.php';
 
-// Log pour le débogage
-// file_put_contents('debug_log.txt', "Méthode de requête : " . $_SERVER['REQUEST_METHOD'] . "\n", FILE_APPEND);
-// file_put_contents('debug_log.txt', "POST data : " . print_r($_POST, true) . "\n\n", FILE_APPEND);
+
 
 // Vérifier si l'utilisateur est connecté (nécessaire pour envoyer un message ou prendre RDV)
 if (!isset($_SESSION['utilisateur'])) {
@@ -142,17 +140,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             $confirmation_message_etudiant = "Votre rendez-vous avec " . $prof_nom_complet . " a été confirmé pour le " . $creneau['date'] . " à " . substr($creneau['heure_debut'], 0, 5) . ".\nMotif : " . $motif;
                             $stmt_insert_msg_etudiant = $pdo->prepare("INSERT INTO messages (sender_user_id, receiver_user_id, message_content, type, appointment_id) VALUES (?, ?, ?, ?, ?)");
                             $exec_etudiant = $stmt_insert_msg_etudiant->execute([$professeur_id, $utilisateur_id, $confirmation_message_etudiant, 'communication', $new_appointment_id]);
-                            // file_put_contents('debug_log.txt', "Log traitement.php: Insertion msg etudiant - Executé: " . ($exec_etudiant ? 'Oui' : 'Non') . "\n", FILE_APPEND);
-                            // if (!$exec_etudiant) {
-                            //      file_put_contents('debug_log.txt', "Log traitement.php: Erreur insertion msg etudiant - Info: " . print_r($stmt_insert_msg_etudiant->errorInfo(), true) . "\n", FILE_APPEND);
-                            // }
+                           
 
                             // Si tout s'est bien passé, commiter la transaction
                             $pdo->commit();
                             // file_put_contents('debug_log.txt', "Log: Transaction commitée.\n", FILE_APPEND);
 
                             // Rediriger vers la page de confirmation du RDV
-                            // file_put_contents('debug_log.txt', "Log: Redirection vers confirmation.php\n", FILE_APPEND);
+                          
                             header('Location: confirmation.php?status=success&type=rdv&rdv_id=' . $new_appointment_id);
                             exit();
 
@@ -170,15 +165,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
 
                 } elseif ($type === 'message') {
-                    // --- Logique d'envoi de message (NOUVEAU) ---
+                    
                     if (isset($_POST['professeur_id'], $_POST['sujet'], $_POST['message'])) {
                         $professeur_id = (int)$_POST['professeur_id'];
                         $sujet = trim($_POST['sujet']);
                         $message_content = trim($_POST['message']);
 
-                        // Insérer le message dans la table messages
-                        // Note : Pour une vraie messagerie, il faudrait aussi un message pour le professeur.
-                        // Ici, on enregistre le message envoyé PAR l'étudiant pour qu'il le voie dans son historique.
+                        
+                        // Ici, on enregistre le message envoyé par l'étudiant pour qu'il le voie dans son historique.
                         $full_message = "Sujet : " . $sujet . "\n\n" . $message_content;
                         $stmt_insert_message = $pdo->prepare("INSERT INTO messages (sender_user_id, receiver_prof_id, message_content, type) VALUES (?, ?, ?, 'communication')");
                         $stmt_insert_message->execute([$utilisateur_id, $professeur_id, $full_message]);
@@ -204,7 +198,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Gérer l'erreur (affichage, log, etc.)
             // Pour le debug:
             echo "Erreur : " . $e->getMessage();
-            // header('Location: confirmation.php?status=error&message=Une erreur est survenue lors du traitement.');
+           
             // exit();
         }
     }

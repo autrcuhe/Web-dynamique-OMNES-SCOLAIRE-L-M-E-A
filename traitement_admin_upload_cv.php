@@ -60,10 +60,6 @@ if (!in_array($file_extension, $allowed_extensions)) {
     exit();
 }
 
-// Potentiellement vérifier le type MIME réel (plus sûr mais peut nécessiter des extensions PHP)
-// if ($cv_file['type'] !== 'text/xml') {
-//     // Peut être plus strict ici si nécessaire
-// }
 
 // Définir le répertoire d'upload et créer si nécessaire
 $upload_dir = __DIR__ . '/uploads/cvs/';
@@ -87,14 +83,7 @@ if (!move_uploaded_file($cv_file['tmp_name'], $target_path)) {
 
 // Mettre à jour le nom du fichier CV dans la base de données pour le professeur
 try {
-    // Optionnel: Supprimer l'ancien fichier CV si il existe
-    // Récupérer l'ancien nom de fichier avant de mettre à jour
-    // $stmt_old_cv = $pdo->prepare("SELECT cv FROM professeurs WHERE id = ?");
-    // $stmt_old_cv->execute([$professeur_id]);
-    // $old_cv_filename = $stmt_old_cv->fetchColumn();
-    // if ($old_cv_filename && file_exists($upload_dir . $old_cv_filename)) {
-    //     unlink($upload_dir . $old_cv_filename);
-    // }
+    
 
     $stmt = $pdo->prepare("UPDATE professeurs SET cv = ? WHERE id = ?");
     $stmt->execute([$new_filename, $professeur_id]);
@@ -111,14 +100,12 @@ try {
         'type' => 'danger',
         'texte' => 'Erreur lors de la mise à jour de la base de données : ' . $e->getMessage()
     ];
-     // Optionnel: supprimer le fichier uploadé si la mise à jour BD échoue
-    // if (file_exists($target_path)) { unlink($target_path); }
+     
 
     header('Location: admin_gerer_cv.php?professeur_id=' . $professeur_id);
     exit();
 }
 
-// Si on arrive ici (ce qui ne devrait pas arriver en cas de succès ou erreur gérée)
 header('Location: admin_gerer_cv.php?professeur_id=' . $professeur_id);
 exit();
 

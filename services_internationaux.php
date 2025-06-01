@@ -10,9 +10,7 @@ $categories = [
     ['id' => 'summer-school', 'nom' => 'Summer School'],
 ];
 
-// Vous pourriez récupérer ici les informations sur les salles depuis la base de données si nécessaire
-// $stmt_salles = $pdo->query("SELECT nom FROM salles_international");
-// $salles = $stmt_salles->fetchAll(PDO::FETCH_COLUMN);
+
 $salles = ["Salle P-425", "Salle B-101"]; // Exemple statique pour l'instant
 
 ?>
@@ -223,8 +221,7 @@ $salles = ["Salle P-425", "Salle B-101"]; // Exemple statique pour l'instant
                                 });
                                 detailsHTML += '</ul>';
                             }
-                            // Vous devrez ajouter des logiques similaires pour afficher les détails
-                            // des autres catégories si vous ajoutez des données spécifiques dans le script PHP.
+                       
 
                         }
                         serviceDetailsDiv.innerHTML = detailsHTML;
@@ -236,8 +233,7 @@ $salles = ["Salle P-425", "Salle B-101"]; // Exemple statique pour l'instant
             });
         });
 
-        // Vous pouvez déclencher le clic sur le premier bouton au chargement de la page pour afficher quelque chose par défaut
-         // window.onload = () => { document.querySelector('.category-btn').click(); };
+        
 
     </script>
 </body>

@@ -17,8 +17,6 @@ session_start();
             margin-bottom: 30px;
         }
 
-        
-
         .search-bar {
             display: flex;
             align-items: center;
@@ -190,7 +188,7 @@ session_start();
                             echo "<p>Matériels demandés : " . htmlspecialchars($prof['materielles_demandes']) . "</p>\n";
                         }
                         // Lien vers la page d'enseignement/profil du professeur ?
-                        // echo "<p><a href=\"enseignement.php?professeur_id=" . $prof['user_id'] . "\">Voir le profil</a></p>\n";
+                       
                         echo "</div>\n";
                     }
                 } else {

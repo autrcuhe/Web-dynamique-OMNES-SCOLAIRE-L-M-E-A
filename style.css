@@ -13,17 +13,18 @@ body {
 }
 
 header {
-    background: #1a1a1a; /* Fond très sombre */
+    background: #191970; /* Fond bleu foncé */
     color: #fff;
     padding: 20px 0 10px 0;
     text-align: center;
 }
 header h1 {
     margin: 0 0 10px 0;
-    font-size: 2.5em; /* Légèrement plus grand */
+    font-size: 2.5em; 
     color: #ffffff; /* Titre principal en blanc */
 }
 nav {
+    background-color: #191970; /* Bleu foncé pour la barre de navigation */
     margin-bottom: 10px;
 }
 nav a {
@@ -39,8 +40,9 @@ nav a:hover {
 main {
     max-width: 800px;
     margin: 30px auto;
-    background: none; /* Assurer l'absence de fond blanc */
+    background: none; 
     padding: 20px; /* Ajouter un peu d'espacement */
+    margin-bottom: 100px; /* Ajouter de l'espace en bas pour permettre le défilement */
 }
 section {
     margin-bottom: 30px;
@@ -50,22 +52,22 @@ section {
 }
 #bienvenue h2 {
     color: #ffffff; /* Titre Bienvenue en blanc */
-    font-size: 3.5em; /* Augmenter la taille */
+    font-size: 3.5em; 
     text-align: center; /* Centrer le titre */
     margin-bottom: 40px; /* Espacement sous le titre */
 }
 #evenement {
     width: 350px;
     min-width: 300px;
-    margin-top: 600px;
+    margin-top: 50px; /* Ajuster la marge supérieure */
 }
 #evenement h3 {
     color: #ffffff; /* Titre d'événement en blanc */
     font-size: 2em;
 }
 #evenement p {
-    font-size: 1.1em; /* Légèrement plus petit pour le texte */
-    color: #cccccc; /* Texte gris clair */
+    font-size: 1.1em;
+    color: #000; /* Texte en noir */
 }
 footer {
     background: #1a1a1a; /* Fond très sombre */
@@ -249,11 +251,11 @@ h1 {
 .form-group textarea {
     width: 100%;
     padding: 8px;
-    border: 1px solid #555; /* Bordure plus sombre */
+    border: 1px solid #555; 
     border-radius: 5px;
     font-size: 1em;
-    background-color: rgba(0, 0, 0, 0.3); /* Fond des champs plus sombre */
-    color: #ffffff; /* Couleur du texte dans les champs */
+    background-color: rgba(0, 0, 0, 0.3); 
+    color: #ffffff; 
 }
 .form-group textarea {
     resize: vertical;
@@ -294,12 +296,12 @@ h1 {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 25px;
     margin-bottom: 30px;
-    width: 300px; /* Ajuster selon la mise en page désirée */
+    width: 300px; 
     text-align: left;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    color: #000; /* Rendre le texte noir */
+    color: #000; 
 }
 
 .prof-header {
@@ -330,11 +332,11 @@ h1 {
 }
 
 .prof-info b {
-    color: #000; /* S'assurer que les titres, paragraphes et texte en gras sont aussi noirs */
+    color: #000; 
 }
 
 .prof-info a {
-    color: #000; /* S'assurer que les liens sont aussi noirs par défaut */
+    color: #000; 
 }
 
 .cv-btn {
@@ -393,7 +395,7 @@ h1 {
 }
 
 .action-btn {
-    /* Réutilisation des styles existants, ajustement si nécessaire */
+    /* Réutilisation des styles existants*/
     display: block;
     background: #16a085;
     color: #fff;
@@ -415,7 +417,7 @@ h1 {
     margin-top: 15px;
     box-shadow: 0 2px 8px rgba(44,62,80,0.08);
     border-radius: 8px;
-    overflow: hidden; /* Important pour que border-radius fonctionne avec les bordures de tableau */
+    overflow: hidden; 
 }
 
 .dispo-rdv-table th,
@@ -457,7 +459,7 @@ h1 {
     font-weight: bold;
 }
 
-/* Optionnel: Rendre les lignes non disponibles moins claires */
+
 .dispo-rdv-table tr:has(.status-reservé),
 .dispo-rdv-table tr:has(.status-annulé) {
     opacity: 0.7;
@@ -468,9 +470,7 @@ h1 {
     transform: scale(1.2);
 }
 
-/* #body{
-    background-color: #9400D3;
-} */ /* Commenté */
+
 
 #background-video {
     position: fixed;
@@ -484,7 +484,7 @@ h1 {
     background-size: cover;
 }
 
-/* Ajoutez un calque semi-transparent sur la vidéo si le texte est difficile à lire */
+
 body::after {
     content: '';
     position: fixed;
@@ -501,22 +501,22 @@ body::after {
     display: flex;
     justify-content: center; /* Centre les éléments horizontalement */
     align-items: flex-start; /* Alignement en haut */
-    margin-top: 400px; /* Ajustez cette marge pour positionner le bloc sous le premier contenu */
+    margin-top: 400px; 
     
     background-color: rgba(255, 255, 255, 0.8); /* Fond blanc semi-transparent */
-    padding: 15px 30px; /* Réduit le padding vertical (haut/bas) à 15px, garde 30px horizontal */
+    padding: 15px 30px; 
     border-radius: 10px; /* Coins arrondis */
-    max-width: 1500px; /* Largeur maximale du conteneur */
-    width: 95%; /* Utilise un pourcentage de la largeur de la fenêtre */
+    max-width: 1500px; 
+    width: 95%;
     margin-left: auto;
-    margin-right: auto; /* Centre le conteneur */
-    gap: 30px; /* Ajoute un espace entre les deux colonnes */
+    margin-right: auto; 
+    gap: 30px; 
 }
 
 #evenement {
-    flex: 0 1 350px; /* Ne grandit pas (0), peut rétrécir (1), base de 350px */
+    flex: 0 1 350px; 
     min-width: 300px; /* Conserve un min-width */
-    width: auto; /* Assure que flex-basis prend le dessus */
+    width: auto; 
 }
 
 #evenement h3 {
@@ -573,15 +573,15 @@ body::after {
 
 /* Styles pour les boutons dans le panneau d'administration */
 .admin-btn {
-    display: inline-block; /* Pour que le padding et les marges fonctionnent comme un bloc */
-    background: #3498db; /* Couleur d'accentuation bleue */
-    color: #fff; /* Texte blanc */
+    display: inline-block; 
+    background: #3498db; 
+    color: #fff; 
     border: none; /* Pas de bordure */
-    border-radius: 5px; /* Bords arrondis */
+    border-radius: 5px;
     padding: 10px 15px; /* Espacement intérieur */
     margin: 5px; /* Espacement entre les boutons */
     font-size: 1em; /* Taille de police standard */
-    cursor: pointer; /* Curseur de lien */
+    cursor: pointer; 
     text-decoration: none; /* Pas de soulignement */
     transition: background 0.2s ease; /* Transition douce au survol */
 }
@@ -590,14 +590,14 @@ body::after {
     background: #2980b9; /* Couleur bleue plus foncée au survol */
 }
 
-/* Nouveaux styles pour la liste des laboratoires sur recherche_lab.php */
+
 .laboratoires-list {
-    display: flex;       /* Utilise flexbox pour aligner les éléments */
-    flex-wrap: wrap;     /* Permet aux éléments de passer à la ligne si nécessaire */
-    gap: 10px;           /* Ajoute un espace entre les boutons (horizontale et verticale) */
+    display: flex;       
+    flex-wrap: wrap;     
+    gap: 10px;           
     justify-content: center; /* Centre les boutons dans le conteneur */
     margin-top: 20px;    /* Ajoute un peu d'espace au-dessus */
-    margin-bottom: 20px; /* Ajoute un peu d'espace en dessous */
+    margin-bottom: 20px; 
 }
 
  

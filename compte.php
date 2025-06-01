@@ -31,9 +31,6 @@ $professeur_info = null;
 //     $rendezvous_prof = $stmt_rdv_prof->fetchAll(PDO::FETCH_ASSOC);
 // }
 
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -94,7 +91,7 @@ $professeur_info = null;
 
     </main>
     <footer>
-        <p>Contact : omnes.education@gmail.com | Tél : 0624354678 | Adresse : 10 rue Sextius Michel, 75015 Paris</p>
+        <p>Contact : contact@omnes-scolaire.fr | Adresse : 10 rue Exemple, Paris</p>
     </footer>
 </body>
 </html> 

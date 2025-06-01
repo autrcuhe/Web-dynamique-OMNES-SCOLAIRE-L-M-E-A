@@ -15,7 +15,7 @@ if (isset($_GET['departement_id'])) {
     $stmt->execute([$departement_id]);
     $professeurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
-
+    // Log temporaire pour débogage
     if ($departement_id === 1) {
         file_put_contents('debug_dept_1.log', "Résultat pour Département ID 1:\n" . print_r($professeurs, true) . "\n", FILE_APPEND);
     }

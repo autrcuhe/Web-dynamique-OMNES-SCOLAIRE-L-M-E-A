@@ -31,7 +31,7 @@ try {
             $data = $universites_avec_cours;
             break;
         case 'doubles-diplomes':
-            // Joindre avec universites_partenaires pour afficher le nom de l'université
+            // Joindre avec universites_partenaires pour afficher le nom de l'université si pertinent
             $stmt = $pdo->query("SELECT pd.*, up.nom as universite_nom 
                                FROM programmes_doubles_diplomes pd
                                LEFT JOIN universites_partenaires up ON pd.universite_partenaire_id = up.id");

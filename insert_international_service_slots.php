@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php'; // Assuming config.php is in the same directory or accessible
+require_once 'config.php'; 
 
 try {
     $pdo->beginTransaction();
@@ -21,15 +21,6 @@ try {
          echo "Service \"{$service_nom}\" inséré avec l'ID : " . $service_id . "<br>";
     }
 
-    // 2. Insérer des créneaux d'exemple pour la Relation Internationale
-    
-    // Supprimer d'abord les anciens créneaux de ce service si nécessaire (optionnel)
-    
-    // $stmt_delete = $pdo->prepare("DELETE FROM creneaux_disponibles WHERE service_id = ?");
-    
-    // $stmt_delete->execute([$service_id]);
-    
-    // echo "Anciens créneaux du service {$service_nom} supprimés.<br>";
     
 
     $creneaux_a_inserer = [

@@ -38,7 +38,7 @@ if (!$professeur_id || !filter_var($professeur_id, FILTER_VALIDATE_INT)) {
 }
 
 // Valider le contenu XML
-// Utiliser LIBXML_NOERROR et LIBXML_NOWARNING pour éviter d'interrompre l'exécution pour des erreurs mineures
+
 libxml_use_internal_errors(true);
 $xml = simplexml_load_string($cv_xml_content);
 $errors = libxml_get_errors();
@@ -67,8 +67,7 @@ try {
     $stmt_old_cv->execute([$professeur_id]);
     $old_cv_filename = $stmt_old_cv->fetchColumn();
 } catch (PDOException $e) {
-    // Loguer l'erreur mais ne pas interrompre l'exécution pour cela
-    // error_log("Erreur lors de la récupération de l'ancien nom de CV: " . $e->getMessage());
+    
 }
 
 $new_filename = $old_cv_filename; // Par défaut, réutiliser l'ancien nom
@@ -96,20 +95,16 @@ if ($new_filename !== $old_cv_filename) {
         $stmt = $pdo->prepare("UPDATE professeurs SET cv = ? WHERE id = ?");
         $stmt->execute([$new_filename, $professeur_id]);
 
-        // Optionnel: Supprimer l'ancien fichier physique si le nom a changé et qu'il existait
+       
         if ($old_cv_filename && file_exists($upload_dir . $old_cv_filename)) {
-             // Attention: S'assurer que $old_cv_filename est sécurisé pour éviter des suppressions arbitraires
-            // Une vérification supplémentaire pourrait être nécessaire ici
-            // unlink($upload_dir . $old_cv_filename);
-        }
+             
 
     } catch (PDOException $e) {
          $_SESSION['message_statut'] = [
             'type' => 'danger',
             'texte' => 'Erreur lors de la mise à jour de la base de données avec le nouveau nom de fichier : ' . $e->getMessage()
         ];
-         // Optionnel: supprimer le fichier nouvellement écrit si la mise à jour BD échoue
-        // if (file_exists($target_path)) { unlink($target_path); }
+         
 
         header('Location: admin_gerer_cv.php?professeur_id=' . $professeur_id);
         exit();
@@ -124,7 +119,7 @@ $_SESSION['message_statut'] = [
 header('Location: admin_gerer_cv.php?professeur_id=' . $professeur_id);
 exit();
 
-// Si on arrive ici (ce qui ne devrait pas arriver en cas de succès ou erreur gérée)
+
 header('Location: admin_gerer_cv.php?professeur_id=' . $professeur_id);
 exit();
 ?> 
