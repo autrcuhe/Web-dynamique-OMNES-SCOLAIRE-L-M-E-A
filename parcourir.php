@@ -13,8 +13,11 @@ session_start();
     <header>
         <h1>Omnes Scolaire</h1>
         <nav>
+            
             <a href="index.php">Accueil</a>
+            
             <a href="parcourir.php">Tout Parcourir</a>
+            
             <a href="recherche.php">Recherche</a>
             <a href="rendezvous.php">Rendez-vous</a>
             <?php if (isset($_SESSION['utilisateur'])): ?>
